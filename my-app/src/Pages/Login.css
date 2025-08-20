@@ -1,0 +1,24 @@
+
+.login {
+  display: flex;
+  justify-content: center;   
+  align-items: center;       
+  height: 100vh;             
+  background: linear-gradient(135deg, #ff9a9e, #8e44ad); 
+}
+
+.login button {
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+  color: #8e44ad;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.login button:hover {
+  background-color: #eee4e5;
+}

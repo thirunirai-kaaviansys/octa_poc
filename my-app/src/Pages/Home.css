@@ -1,8 +1,5 @@
-
-
 /* Gradient background with centered text */
-.home {
-  
+.home { 
   display: flex;
   justify-content: center;   
   align-items: center;       
@@ -12,7 +9,6 @@
   color: white;
   text-align: center;
   font-family: Sans-serif;
-  /* padding: 100px; */
 }
 
 /* Title style */

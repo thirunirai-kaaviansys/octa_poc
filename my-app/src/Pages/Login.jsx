@@ -1,12 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useOktaAuth } from "@okta/okta-react";
 import "./Login.css";
 
 function Login() {
-  const navigate = useNavigate();
+  const { oktaAuth, authState } = useOktaAuth();
+
+  if (authState?.isAuthenticated) {
+    window.location.replace("/home");
+    return null;
+  }
+
+  const handleLogin = () => {
+    oktaAuth.signInWithRedirect();
+  };
 
   return (
     <div className="login">
-      <button onClick={() => navigate("/home")}>Login</button>
+      <button onClick={handleLogin}>Login with Okta</button>
     </div>
   );
 }

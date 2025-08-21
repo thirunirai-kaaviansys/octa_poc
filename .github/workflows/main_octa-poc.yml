@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +27,10 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Verify build output
+        run: |
+          ls -la server/public
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -37,15 +41,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: server/   # <--- Add this line to download into ./server folder
+          path: server/
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -54,9 +58,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8B5F040660864629B5E59B9D58539232 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DE7E1C6EEA894368A4E46F25B9BAA533 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'octa-poc'
-          package: server/    # <--- Update package path to match downloaded folder
+          package: server/
+          slot-name: 'production' # Replace with your slot name if needed

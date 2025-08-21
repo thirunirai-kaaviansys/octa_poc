@@ -20,22 +20,18 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: npm install, build, and test
+      - name: npm install, build frontend, and backend
         run: |
           cd server
           npm install
           npm run build --if-present
           npm run test --if-present
 
-      - name: Verify build output
-        run: |
-          ls -la server/public
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: server/
+          path: server/   # ✅ Only upload the server folder
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: server/
+          path: ./server  # ✅ Place it back into the correct folder
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -59,9 +55,8 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DE7E1C6EEA894368A4E46F25B9BAA533 }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'octa-poc'
-          package: server/
-          slot-name: 'production' # Replace with your slot name if needed
+          slot-name: 'Production'
+          package: ./server  # ✅ Point directly to the server folder

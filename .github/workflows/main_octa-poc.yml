@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: ./server   # <--- Add this line to download into ./server folder
+          path: server/   # <--- Add this line to download into ./server folder
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'octa-poc'
           slot-name: 'Production'
-          package: ./server    # <--- Update package path to match downloaded folder
+          package: server/    # <--- Update package path to match downloaded folder

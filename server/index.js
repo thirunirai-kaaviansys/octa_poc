@@ -10,11 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../my-app/dist')));
 
 if (['DEV'].includes(NODE_ENV)) {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../my-app/dist', 'index.html'));
   });
 }
 

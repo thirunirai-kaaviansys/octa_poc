@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'octa-poc'
           slot-name: 'Production'
-          package: .
+          package: server/
           

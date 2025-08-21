@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "cd ../my-app && npm install && npm run build && cd ../server && rm -rf public && cp -r ../my-app/dist ./public",
+    "build": "cd ../my-app && npm install && npm run build",
     "start": "node index.js"
   },
   "author": "",

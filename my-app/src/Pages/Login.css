@@ -7,6 +7,19 @@
   background: linear-gradient(135deg, #ff9a9e, #8e44ad); 
 }
 
+.home{
+  display: flex;
+  flex-direction: column;
+}
+
+.sample-button {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  color: black;
+  padding: 10px;
+}
 .login button {
   padding: 12px 30px;
   font-size: 18px;

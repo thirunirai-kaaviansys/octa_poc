@@ -26,7 +26,9 @@ function Home() {
   return (
     <div className="home">
       <h1>Welcome, {userInfo.name}!</h1>
-      <button onClick={() => oktaAuth.signOut()}>Logout</button>
+      <div onClick={() => oktaAuth.signOut()} className="sample-button">
+        Logout
+      </div>
     </div>
   );
 }

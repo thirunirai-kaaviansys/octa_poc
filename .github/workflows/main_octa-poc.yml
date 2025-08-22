@@ -20,9 +20,6 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       # Build frontend
       - name: Install frontend dependencies
         working-directory: ./my-app
@@ -43,7 +40,7 @@ jobs:
           rm -rf ./server/client_build
           cp -R ./my-app/dist ./server/client_build
 
-      # Step 4: Upload the built server for deployment
+      # Upload the built server for deployment
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

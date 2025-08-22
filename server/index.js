@@ -8,13 +8,14 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, 'client_build')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
+// Serve index.html for all unmatched routes (SPA support)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client_build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

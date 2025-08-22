@@ -20,24 +20,28 @@ jobs:
         with:
           node-version: '22.x'
 
-      # Step 1: Build client
-      - name: Install client dependencies and build React app
-        run: |
-          cd my-app
-          npm install
-          npm run build
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # Step 2: Install server deps
+      # Build frontend
+      - name: Install frontend dependencies
+        working-directory: ./my-app
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./my-app
+        run: npm run build
+
+      # Build backend
       - name: Install server dependencies
-        run: |
-          cd server
-          npm install
+        working-directory: ./server
+        run: npm install
 
-      # Step 3: Copy client build to server folder
-      - name: Copy client build to server
+      # Copy frontend build output to backend static folder
+      - name: Copy frontend build into server/static folder
         run: |
-          rm -rf server/client_build
-          cp -r my-app/dist server/client_build
+          rm -rf ./server/client_build
+          cp -R ./my-app/dist ./server/client_build
 
       # Step 4: Upload the built server for deployment
       - name: Upload artifact
@@ -58,7 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: .
+          path: ./server
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -72,4 +76,4 @@ jobs:
         with:
           app-name: 'octa-poc'
           slot-name: 'Production'
-          package: .
+          package: ./server

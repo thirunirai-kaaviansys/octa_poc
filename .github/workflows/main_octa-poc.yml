@@ -21,9 +21,9 @@ jobs:
           node-version: '22.x'
 
       # Step 1: Install and build frontend
-      - name: Install client dependencies and build React app
+      - name: Install my-app dependencies and build React app
         run: |
-          cd client
+          cd my-app
           npm install
           npm run build
 
@@ -37,7 +37,7 @@ jobs:
       - name: Copy client build to server folder
         run: |
           rm -rf server/client_build
-          cp -r client/dist server/client_build
+          cp -r my-app/dist server/client_build
 
       # Step 4: Upload only the server folder for deployment
       - name: Upload artifact for deployment job
